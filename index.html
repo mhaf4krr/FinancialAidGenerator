@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Financial Aid App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+    .row{
+        margin:30px auto;
+    }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                    <div class="jumbotron jumbotron-fluid bg-dark">
+                            <div class="container text-center">
+                              <h1 class="text-white">Financial Aid Application Creator</h1>
+                              <p class="lead text-primary">Create your Financial Aid Application with few Clicks.</p>
+                            </div>
+                          </div>
+                    <form>
+                            <span id='error_msg'></span>
+                            <div class="form-group">
+                              <label for="user_name">Your Full Name</label>
+                              <input type="email" class="form-control" id="user_name" aria-describedby="emailHelp" placeholder="Enter full name" required=>
+                            </div>
+                            <div class="form-group">
+                              <label for="course_apply">Course to Apply </label>
+                              <input type="text" class="form-control" id="course_apply" placeholder="Course to Apply">
+                            </div>
+                            
+                            <div class="form-group">
+                                    <label for="country"> Country </label>
+                                   <input type="text" class="form-control" id="country" placeholder="You live in ?">
+                            </div>
+
+                            <div class="form-group">
+                                    <label for="aoi"> Area of Interest </label>
+                                   <input type="text" class="form-control" id="aoi" placeholder="You are interested in ?">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="submit_app">Generate my Application</button>
+                          </form>
+            </div>
+        </div>
+
+        <div class="row" id='application'>
+                <div class="alert alert-primary col-md-4 offset-md-4" role="alert">
+                        <h5>Why are you applying for Financial Aid? <button onclick="Copy(1)">Copy</button> </h5> 
+                        <div id='question1'></div>
+                </div>
+
+                <div class="alert alert-warning col-md-4 offset-md-4" role="alert">
+                        <h5>How will taking this course help you achieve your carreer goals?<button onclick="Copy(2)">Copy</button> </h5> 
+                        <div id='question2'></div>
+                </div>
+
+
+                <div class="alert alert-danger col-md-4 offset-md-4" role="alert">
+                        <h5>If you answered no, please help us understand why.?<button onclick="Copy(3)">Copy</button> </h5> 
+                        <div id='question3'></div>
+                </div>
+        </div>
+    </div>
+    <script>
+        
+        let ans1;
+        let asn2;
+        let ans3;
+        
+        document.querySelector('#submit_app').addEventListener('click',(e)=>{
+            e.preventDefault();
+            let name = document.querySelector('#user_name').value;
+            let course = document.querySelector('#course_apply').value;
+            let country = document.querySelector('#country').value;
+            let aoi = document.querySelector('#aoi').value;
+            console.log(name + course + country + aoi)
+
+            //Load question 1
+             ans1 = `Hello dear reviewer! My name is ${name} and I am from ${country}. As you may know that our country belongs to a very poor countries. An average salary is 616 US dollars per month and our state's average salary is only 315 US dollars per month. Can you imagine living on this money? But things get even worse when you are a student. I even can't feed myself.I  am fully dependent on my parents. For me, it seems impossible to pay for an entire course by myself. My parent neither can help me. I would say the main reason I ' m asking you for the Financial Aid is the circumstances due to which I happened to born in a beautiful country – India. Receiving this Financial Aid will open for me a new horizons of the world of Coursera courses, which in turn will help me in future.` 
+            document.querySelector('#question1').innerText=ans1;
+
+            //Load question 2
+            ans2 = `By my nature, I am a very curious person. In my university, I am the best student. I haven't received any bad marks for a whole period of studying. I chose my specialty as well as my future job based on my interest. I strongly believe that making your job a hobby will allow you to reach a very high place. This belief has helped me a lot during my studying and I hope will help in the future. As I have already mentioned I make my specialty to be my hobby (and vice versa). I'm really interested in taking your course  since this is one of the topics which I will face in future if I want to be a ${aoi} specialist. As you may know, this nowadays is very much useful in ${aoi}. Taking this course will help me to get closer to my dreams to become a ${aoi} specialist.As I say unemployed and neither my parent can't help me due to our condition.`
+            document.querySelector('#question2').innerText=ans2;
+
+
+            //Load question 3
+            ans3="As I say unemployed and neither my parent can't help me due to our condition."
+            document.querySelector('#question3').innerText=ans3;
+
+        })
+    
+    function Copy(answer) {
+        let copyText;
+        switch(answer){
+            case 1:copyText = ans1;
+            break;
+            case 2:copyText = ans2;
+            break;
+            case 3:copyText = ans3;
+            break;
+        }
+
+        navigator.clipboard.writeText(copyText)
+  .then(() => {
+    console.log('Text copied to clipboard');
+  })
+  .catch(err => {
+    // This can happen if the user denies clipboard permissions:
+    console.error('Could not copy text: ', err);
+  });
+    }
+    </script>
+</body>
+</html>
